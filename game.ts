@@ -58,6 +58,10 @@ process.stdin.on('keypress', function (ch, key) {
         render();
         break;
   }
+  if(snake.posy == fruit[0] && snake.posx == fruit[1]){
+      snake.width++;
+        frutifar();
+    }
   if(snake.posx == lenght || snake.posx-snake.width == -1 || snake.posy == 10 || snake.posy == -1){
     render();
     console.log(chalk.inverse("GAME OVERRR"));
@@ -66,7 +70,11 @@ process.stdin.on('keypress', function (ch, key) {
 });
 
 let lenght: number = 57;
-let fruit: any[] = [3,20];
+let fruit: any[] = [0,0];
+const frutifar = () => {
+    fruit[0] = Math.floor(Math.random()*10);
+    fruit[1] = Math.floor(Math.random()*((lenght-2)-(snake.posx-snake.width))+(snake.posx-snake.width+2));
+}
 let ceiling: string = " ";
 for(let i = 0; i < lenght; i++){
     ceiling+="*";
@@ -91,9 +99,6 @@ const render = function(){
              else{
                 row= row + "_";
             }
-            if(snake.posy == fruit[0] && snake.posx == fruit[1]){
-                    snake.width++;
-                }
         }
         row= row + chalk.red("|");
     console.log(row);
@@ -102,6 +107,7 @@ const render = function(){
 }
  
 render();
+frutifar();
 process.stdin.setRawMode(true);
 process.stdin.resume();
 
