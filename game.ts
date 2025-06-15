@@ -1,3 +1,5 @@
+import chalk from "chalk";
+
 interface Isnake{
     width: number,
     posx: number,
@@ -7,8 +9,8 @@ interface Isnake{
 
 let snake: Isnake = {
     width: 3,
-    posx: 10,
-    posy: 10,
+    posx: 3,
+    posy: 5,
     score: 0
 }
 
@@ -56,31 +58,50 @@ process.stdin.on('keypress', function (ch, key) {
         render();
         break;
   }
+  if(snake.posx == lenght || snake.posx-snake.width == -1 || snake.posy == 10 || snake.posy == -1){
+    render();
+    console.log(chalk.inverse("GAME OVERRR"));
+    process.stdin.pause();
+  }
 });
 
 let lenght: number = 57;
+let fruit: any[] = [3,20];
 let ceiling: string = " ";
 for(let i = 0; i < lenght; i++){
     ceiling+="*";
 }
 
 const render = function(){
-    console.log(ceiling);
+    console.log(chalk.red(ceiling));
+    let head: number = snake.width;
     for (let m = 0; m<10; m++){
-        let row = "|";
+        let row = chalk.red("|");
         for(let n = 0; n<lenght; n++){
-            if(m == snake.posy && n == snake.posx){
-                row= row + "@"
-            }else{
-                row= row + "_"
+              if(m == snake.posy && n == snake.posx - head){
+                  row = row + chalk.yellow("-");
+                  if(head>1){head--;}
+              }
+             else if(m == snake.posy && n == snake.posx){
+                 row= row + chalk.yellow(">");
+             }
+             else if(m == fruit[0] && n == fruit[1]){
+                row= row + chalk.cyan("#");
+             }
+             else{
+                row= row + "_";
             }
+            if(snake.posy == fruit[0] && snake.posx == fruit[1]){
+                    snake.width++;
+                }
         }
-        row= row + "|"
+        row= row + chalk.red("|");
     console.log(row);
     }
-    console.log(ceiling);
+    console.log(chalk.red(ceiling));
 }
  
+render();
 process.stdin.setRawMode(true);
 process.stdin.resume();
 
