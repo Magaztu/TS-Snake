@@ -11,7 +11,7 @@ let snake: Isnake = {
     width: 3,
     posx: 3,
     posy: 5,
-    score: 0
+    score: 69
 }
 
 var keypress = require('keypress');
@@ -22,6 +22,7 @@ keypress(process.stdin);
 // listen for the "keypress" event
 process.stdin.on('keypress', function (ch, key) {
   //console.log('got "keypress"', key);
+  inputsbyplayer++;
   if (key && key.ctrl && key.name == 'c') {
     process.stdin.pause();
   }
@@ -61,19 +62,23 @@ process.stdin.on('keypress', function (ch, key) {
   if(snake.posy == fruit[0] && snake.posx == fruit[1]){
       snake.width++;
         frutifar();
+        snake.score += snake.score * score_multiplier;
+        score_multiplier = (inputsbyplayer/1024)*0.420;
     }
   if(snake.posx == lenght || snake.posx-snake.width == -1 || snake.posy == 10 || snake.posy == -1){
     render();
-    console.log(chalk.inverse("GAME OVERRR"));
+    console.log(chalk.inverse("GAME OVERRR" + `   SCORE: ${snake.score.toFixed(2)}`));
     process.stdin.pause();
   }
 });
 
+let inputsbyplayer: number = 0;
+let score_multiplier = 0.2;
 let lenght: number = 57;
 let fruit: any[] = [0,0];
 const frutifar = () => {
     fruit[0] = Math.floor(Math.random()*10);
-    fruit[1] = Math.floor(Math.random()*((lenght-2)-(snake.posx-snake.width))+(snake.posx-snake.width+2));
+    fruit[1] = Math.floor(Math.random()*((lenght-1)-(snake.width+2))+(snake.width+2));
 }
 let ceiling: string = " ";
 for(let i = 0; i < lenght; i++){
@@ -106,8 +111,8 @@ const render = function(){
     console.log(chalk.red(ceiling));
 }
  
-render();
 frutifar();
+render();
 process.stdin.setRawMode(true);
 process.stdin.resume();
 
@@ -115,3 +120,4 @@ process.stdin.resume();
 
 // console.log("test test");
 
+//I'm gonna call this version of snake the "road-jump" snake game... I'll figure out how to replicate the authentic snake game eventually tho
