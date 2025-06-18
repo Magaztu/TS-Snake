@@ -9,3 +9,7 @@ As of now, there's only one "game": Road-Jump Snake
 
 Will you be able to collect every fruit before getting off-road?
 Put your skills to the test and show 'em who's the __BIGGEST__ Snake of all.
+
+#### Classic-Snake Snake
+
+Does this one need an explanation?
