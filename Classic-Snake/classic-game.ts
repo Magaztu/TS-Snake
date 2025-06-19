@@ -13,6 +13,25 @@ process.stdin.on('keypress', function (ch, key) {
   if (key.name == 'o'){
     console.log("Soy una serpiente");  
   }
+
+  switch (key.name){
+    case 'w':
+    case 'up':
+      console.log('UP');
+      break;
+    case 'd':
+    case 'right':
+      console.log('RIGHT');
+      break;
+    case 'down':
+    case 's':
+      console.log('DOWN');
+      break;
+    case 'a':
+    case 'left':
+      console.log('LEFT');
+      break;
+  }
 });
 
 process.stdin.setRawMode(true);
