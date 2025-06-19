@@ -1,3 +1,4 @@
+import chalk from 'chalk';
 var keypress = require('keypress');
  
 // make `process.stdin` begin emitting "keypress" events
@@ -22,10 +23,12 @@ process.stdin.on('keypress', function (ch, key) {
     case 'd':
     case 'right':
       console.log('RIGHT');
+      movRight();
       break;
     case 'down':
     case 's':
       console.log('DOWN');
+      Draw();
       break;
     case 'a':
     case 'left':
@@ -33,6 +36,35 @@ process.stdin.on('keypress', function (ch, key) {
       break;
   }
 });
+
+let mySnake = [
+  //positions
+  {x: 4, y:5},{x: 5, y:5},{x: 6, y:5}
+];
+
+function movRight() {
+let growth = {x: mySnake[0].x + 1, y: mySnake[1].y};
+mySnake.unshift(growth);
+mySnake.pop();
+
+console.log(mySnake)
+}
+
+function Draw(){
+  for (let m = 0; m<10; m++){
+    let line = "|";
+    for(let n = 0; n <19; n++){
+      if (true){
+        //n == mySnake[]
+      }
+      else{
+        line += " ";
+      }
+    }
+    line += "|";
+    console.log(chalk.bgGreenBright(line));
+  }
+}
 
 process.stdin.setRawMode(true);
 process.stdin.resume();
