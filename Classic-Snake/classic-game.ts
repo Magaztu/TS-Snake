@@ -54,6 +54,7 @@ mySnake.unshift(growth);
 mySnake.pop();
 
 console.log(mySnake)
+checkIfGameOver();
 }
 function movLeft() {
 let growth = {x: mySnake[0].x - 1, y: mySnake[0].y};
@@ -61,6 +62,7 @@ mySnake.unshift(growth);
 mySnake.pop();
 
 console.log(mySnake)
+checkIfGameOver();
 }
 function movUp() {
 let growth = {x: mySnake[0].x, y: mySnake[0].y - 1};
@@ -68,6 +70,7 @@ mySnake.unshift(growth);
 mySnake.pop();
 
 console.log(mySnake)
+checkIfGameOver();
 }
 function movDown() {
 let growth = {x: mySnake[0].x, y: mySnake[0].y + 1};
@@ -75,22 +78,43 @@ mySnake.unshift(growth);
 mySnake.pop();
 
 console.log(mySnake)
+checkIfGameOver();
 }
 
 function Draw(){
   for (let m = 0; m<10; m++){
     let line = "|";
     for(let n = 0; n <19; n++){
+      let nonbody = false;
       if (m == mySnake[0].y && n == mySnake[0].x){
         line += chalk.blackBright("■");
+        nonbody  =true;
       }
-      else{
-        line += " ";
+      for(let i = 1; i <= mySnake.length-1; i++){
+        if(m == mySnake[i].y && n == mySnake[i].x){
+          line += chalk.blackBright("□");
+          nonbody = true;
+        }
       }
+      if (!nonbody){
+          line += " ";
+        }
     }
     line += "|";
     console.log(chalk.bgGreenBright(line));
   }
+}
+
+function gameOver(){
+  return process.stdin.pause();
+}
+
+function checkIfGameOver(){
+  for(let i = 1; i <=mySnake.length-1; i++){
+    if((mySnake[0].x == mySnake[i].x) && (mySnake[0].y == mySnake[i].y)){
+      gameOver();
+    }
+  } 
 }
 
 Draw();
