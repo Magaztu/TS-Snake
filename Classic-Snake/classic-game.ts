@@ -19,20 +19,26 @@ process.stdin.on('keypress', function (ch, key) {
     case 'w':
     case 'up':
       console.log('UP');
+      movUp();
+      Draw();
       break;
     case 'd':
     case 'right':
       console.log('RIGHT');
       movRight();
+      Draw();
       break;
     case 'down':
     case 's':
       console.log('DOWN');
+      movDown();
       Draw();
       break;
     case 'a':
     case 'left':
       console.log('LEFT');
+      movLeft();
+      Draw();
       break;
   }
 });
@@ -43,7 +49,28 @@ let mySnake = [
 ];
 
 function movRight() {
-let growth = {x: mySnake[0].x + 1, y: mySnake[1].y};
+let growth = {x: mySnake[0].x + 1, y: mySnake[0].y};
+mySnake.unshift(growth);
+mySnake.pop();
+
+console.log(mySnake)
+}
+function movLeft() {
+let growth = {x: mySnake[0].x - 1, y: mySnake[0].y};
+mySnake.unshift(growth);
+mySnake.pop();
+
+console.log(mySnake)
+}
+function movUp() {
+let growth = {x: mySnake[0].x, y: mySnake[0].y - 1};
+mySnake.unshift(growth);
+mySnake.pop();
+
+console.log(mySnake)
+}
+function movDown() {
+let growth = {x: mySnake[0].x, y: mySnake[0].y + 1};
 mySnake.unshift(growth);
 mySnake.pop();
 
@@ -54,8 +81,8 @@ function Draw(){
   for (let m = 0; m<10; m++){
     let line = "|";
     for(let n = 0; n <19; n++){
-      if (true){
-        //n == mySnake[]
+      if (m == mySnake[0].y && n == mySnake[0].x){
+        line += chalk.blackBright("■");
       }
       else{
         line += " ";
@@ -66,5 +93,6 @@ function Draw(){
   }
 }
 
+Draw();
 process.stdin.setRawMode(true);
 process.stdin.resume();
