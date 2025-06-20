@@ -53,7 +53,7 @@ let growth = {x: mySnake[0].x + 1, y: mySnake[0].y};
 mySnake.unshift(growth);
 mySnake.pop();
 
-console.log(mySnake)
+console.log(mySnake);
 checkIfGameOver();
 }
 function movLeft() {
@@ -61,7 +61,7 @@ let growth = {x: mySnake[0].x - 1, y: mySnake[0].y};
 mySnake.unshift(growth);
 mySnake.pop();
 
-console.log(mySnake)
+console.log(mySnake);
 checkIfGameOver();
 }
 function movUp() {
@@ -69,7 +69,7 @@ let growth = {x: mySnake[0].x, y: mySnake[0].y - 1};
 mySnake.unshift(growth);
 mySnake.pop();
 
-console.log(mySnake)
+console.log(mySnake);
 checkIfGameOver();
 }
 function movDown() {
@@ -77,7 +77,7 @@ let growth = {x: mySnake[0].x, y: mySnake[0].y + 1};
 mySnake.unshift(growth);
 mySnake.pop();
 
-console.log(mySnake)
+console.log(mySnake);
 checkIfGameOver();
 }
 
@@ -94,6 +94,7 @@ function Draw(){
         if(m == mySnake[i].y && n == mySnake[i].x){
           line += chalk.blackBright("□");
           nonbody = true;
+          break;
         }
       }
       if (!nonbody){
