@@ -81,20 +81,23 @@ console.log(mySnake);
 checkIfGameOver();
 }
 
+let go_flag = false;
+
 function Draw(){
   for (let m = 0; m<10; m++){
     let line = "|";
     for(let n = 0; n <19; n++){
       let nonbody = false;
       if (m == mySnake[0].y && n == mySnake[0].x){
-        line += chalk.blackBright("■");
+        if (!go_flag){
+          line += chalk.blackBright("■");
+        }
         nonbody  =true;
       }
       for(let i = 1; i <= mySnake.length-1; i++){
         if(m == mySnake[i].y && n == mySnake[i].x){
           line += chalk.blackBright("□");
           nonbody = true;
-          break;
         }
       }
       if (!nonbody){
@@ -107,6 +110,7 @@ function Draw(){
 }
 
 function gameOver(){
+  go_flag = true;
   return process.stdin.pause();
 }
 
