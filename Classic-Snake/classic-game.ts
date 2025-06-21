@@ -41,6 +41,20 @@ process.stdin.on('keypress', function (ch, key) {
       Draw();
       break;
   }
+  /*
+  //PLACEHOLDER FOR FRUIT EATING, SCORE SYSTEM AND BORDER COLLITION (Taken from Road-Jump game)
+  if(snake.posy == fruit[0] && snake.posx == fruit[1]){
+      snake.width++;
+        frutifar();
+        snake.score += snake.score * score_multiplier;
+        score_multiplier = (inputsbyplayer/1024)*0.420;
+    }
+  if(snake.posx == lenght || snake.posx-snake.width == -1 || snake.posy == 10 || snake.posy == -1){
+    render();
+    console.log(chalk.inverse("GAME OVERRR" + `   SCORE: ${snake.score.toFixed(2)}`));
+    process.stdin.pause();
+  }
+    */
 });
 
 let mySnake = [
@@ -122,6 +136,15 @@ function checkIfGameOver(){
   } 
 }
 
+let fruit = [0,0];
+
+function fruitPull(){
+  let x = Math.floor(Math.random()*10);
+  let y = Math.floor(Math.random()*19);
+  fruit = [x,y];
+}
+
+fruitPull();
 Draw();
 process.stdin.setRawMode(true);
 process.stdin.resume();
