@@ -8,6 +8,8 @@ keypress(process.stdin);
 process.stdin.on('keypress', function (ch, key) {
   //console.log('got "keypress"', key);
 
+  inputsbyplayer++;
+
   if (key && key.ctrl && key.name == 'c') {
     process.stdin.pause();
   }
@@ -33,6 +35,7 @@ process.stdin.on('keypress', function (ch, key) {
       console.log('DOWN');
       movDown();
       Draw();
+      console.log(fruit);
       break;
     case 'a':
     case 'left':
@@ -41,14 +44,13 @@ process.stdin.on('keypress', function (ch, key) {
       Draw();
       break;
   }
-  /*
-  //PLACEHOLDER FOR FRUIT EATING, SCORE SYSTEM AND BORDER COLLITION (Taken from Road-Jump game)
-  if(snake.posy == fruit[0] && snake.posx == fruit[1]){
-      snake.width++;
-        frutifar();
-        snake.score += snake.score * score_multiplier;
+  if(mySnake[0].y == fruit[1] && mySnake[0].x == fruit[0]){
+      GROW();
+      fruitPull();
+        score += score * score_multiplier;
         score_multiplier = (inputsbyplayer/1024)*0.420;
     }
+  /*
   if(snake.posx == lenght || snake.posx-snake.width == -1 || snake.posy == 10 || snake.posy == -1){
     render();
     console.log(chalk.inverse("GAME OVERRR" + `   SCORE: ${snake.score.toFixed(2)}`));
@@ -61,6 +63,15 @@ let mySnake = [
   //positions
   {x: 4, y:5},{x: 5, y:5},{x: 6, y:5}
 ];
+
+let inputsbyplayer = 0;
+let score_multiplier = 0;
+let score = 0;
+
+function GROW(){
+  let growth = {x: mySnake[0].x + 1, y: mySnake[0].y};
+  mySnake.unshift(growth);
+}
 
 function movRight() {
 let growth = {x: mySnake[0].x + 1, y: mySnake[0].y};
@@ -108,6 +119,10 @@ function Draw(){
         }
         nonbody  =true;
       }
+      if(m == fruit[1] && n == fruit[0]){
+        line += chalk.redBright("¬");
+        nonbody = true;
+      }
       for(let i = 1; i <= mySnake.length-1; i++){
         if(m == mySnake[i].y && n == mySnake[i].x){
           line += chalk.blackBright("□");
@@ -141,7 +156,7 @@ let fruit = [0,0];
 function fruitPull(){
   let x = Math.floor(Math.random()*10);
   let y = Math.floor(Math.random()*19);
-  fruit = [x,y];
+  fruit = [y,x];
 }
 
 fruitPull();
