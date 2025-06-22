@@ -10,6 +10,15 @@ process.stdin.on('keypress', function (ch, key) {
 
   inputsbyplayer++;
 
+  if(mySnake[0].y == fruit[1] && mySnake[0].x == fruit[0]){
+    //draw_fruit = true;
+    snake_width++;
+    GROW();
+    fruitPull();
+      score += score * score_multiplier;
+      score_multiplier = (inputsbyplayer/1024)*0.420;
+  }
+
   if (key && key.ctrl && key.name == 'c') {
     process.stdin.pause();
   }
@@ -44,19 +53,11 @@ process.stdin.on('keypress', function (ch, key) {
       Draw();
       break;
   }
-  if(mySnake[0].y == fruit[1] && mySnake[0].x == fruit[0]){
-      GROW();
-      fruitPull();
-        score += score * score_multiplier;
-        score_multiplier = (inputsbyplayer/1024)*0.420;
-    }
-  /*
-  if(snake.posx == lenght || snake.posx-snake.width == -1 || snake.posy == 10 || snake.posy == -1){
-    render();
-    console.log(chalk.inverse("GAME OVERRR" + `   SCORE: ${snake.score.toFixed(2)}`));
+  if(mySnake[0].x == 20 || mySnake[0].x-snake_width == -1 || mySnake[0].y == 10 || mySnake[0].y == -1){
+    Draw();
+    console.log(chalk.inverse("GAME OVERRR" + `   SCORE: ${score.toFixed(2)}`));
     process.stdin.pause();
   }
-    */
 });
 
 let mySnake = [
@@ -64,9 +65,11 @@ let mySnake = [
   {x: 4, y:5},{x: 5, y:5},{x: 6, y:5}
 ];
 
+let snake_width = 3;
 let inputsbyplayer = 0;
 let score_multiplier = 0;
 let score = 0;
+// let draw_fruit = false;
 
 function GROW(){
   let growth = {x: mySnake[0].x + 1, y: mySnake[0].y};
@@ -121,6 +124,7 @@ function Draw(){
       }
       if(m == fruit[1] && n == fruit[0]){
         line += chalk.redBright("¬");
+        //draw_fruit = false;
         nonbody = true;
       }
       for(let i = 1; i <= mySnake.length-1; i++){
@@ -154,9 +158,9 @@ function checkIfGameOver(){
 let fruit = [0,0];
 
 function fruitPull(){
-  let x = Math.floor(Math.random()*10);
-  let y = Math.floor(Math.random()*19);
-  fruit = [y,x];
+  let y = Math.floor(Math.random()*10);
+  let x = Math.floor(Math.random()*19);
+  fruit = [x,y];
 }
 
 fruitPull();
