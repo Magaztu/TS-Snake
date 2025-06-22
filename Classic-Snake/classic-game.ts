@@ -44,7 +44,6 @@ process.stdin.on('keypress', function (ch, key) {
       console.log('DOWN');
       movDown();
       Draw();
-      console.log(fruit);
       break;
     case 'a':
     case 'left':
@@ -79,7 +78,7 @@ let growth = {x: mySnake[0].x + 1, y: mySnake[0].y};
 mySnake.unshift(growth);
 mySnake.pop();
 
-console.log(mySnake);
+// console.log(mySnake);
 checkIfGameOver();
 }
 
@@ -88,7 +87,7 @@ let growth = {x: mySnake[0].x - 1, y: mySnake[0].y};
 mySnake.unshift(growth);
 mySnake.pop();
 
-console.log(mySnake);
+// console.log(mySnake);
 checkIfGameOver();
 }
 
@@ -97,7 +96,7 @@ let growth = {x: mySnake[0].x, y: mySnake[0].y - 1};
 mySnake.unshift(growth);
 mySnake.pop();
 
-console.log(mySnake);
+// console.log(mySnake);
 checkIfGameOver();
 }
 
@@ -106,7 +105,7 @@ let growth = {x: mySnake[0].x, y: mySnake[0].y + 1};
 mySnake.unshift(growth);
 mySnake.pop();
 
-console.log(mySnake);
+// console.log(mySnake);
 checkIfGameOver();
 }
 
@@ -144,6 +143,7 @@ function Draw(){
     line += "|";
     console.log(chalk.bgGreenBright(line));
   }
+  // console.log(fruit);
 }
 
 function gameOver(){
@@ -167,8 +167,20 @@ function checkIfGameOver(){
 let fruit = [0,0];
 
 function fruitPull(){
-  let y = Math.floor(Math.random()*10);
-  let x = Math.floor(Math.random()*19);
+  let y: number
+  let x: number
+
+  let is_open: boolean = false;
+  do{
+    y = Math.floor(Math.random()*10);
+    x = Math.floor(Math.random()*19);
+    is_open = true;
+    for(let i = 0; i <=mySnake.length-1; i++){
+      if((x == mySnake[i].x) && (y == mySnake[i].y)){
+        is_open = false;
+      }
+    }
+  }while (is_open == false);
   fruit = [x,y];
 }
 
