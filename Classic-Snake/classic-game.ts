@@ -15,8 +15,8 @@ process.stdin.on('keypress', function (ch, key) {
     // snake_width++;
     GROW();
     fruitPull();
-      score += score * score_multiplier;
-      score_multiplier = (inputsbyplayer/1024)*0.420;
+      score += score + score_magnify;
+      score_magnify = (inputsbyplayer/1024)*0.420;
   }
 
   if (key && key.ctrl && key.name == 'c') {
@@ -53,10 +53,8 @@ process.stdin.on('keypress', function (ch, key) {
       Draw();
       break;
   }
-  if(mySnake[0].x == 19 || mySnake[0].x == -1 || mySnake[0].y == 10 || mySnake[0].y == -1){
-    Draw();
+  if (go_flag){
     console.log(chalk.inverse("GAME OVERRR" + `   SCORE: ${score.toFixed(2)}`));
-    process.stdin.pause();
   }
 });
 
@@ -67,13 +65,13 @@ let mySnake = [
 
 // let snake_width = 3;
 let inputsbyplayer = 0;
-let score_multiplier = 0;
-let score = 0;
+let score_magnify = 1;
+let score = 1;
 // let draw_fruit = false;
 
 function GROW(){
-  let growth = {x: mySnake[0].x + 1, y: mySnake[0].y};
-  mySnake.unshift(growth);
+  let growth = {x: mySnake[mySnake.length-1].x, y: mySnake[mySnake.length-1].y};
+  mySnake.push(growth);
 }
 
 function movRight() {
@@ -84,6 +82,7 @@ mySnake.pop();
 console.log(mySnake);
 checkIfGameOver();
 }
+
 function movLeft() {
 let growth = {x: mySnake[0].x - 1, y: mySnake[0].y};
 mySnake.unshift(growth);
@@ -92,6 +91,7 @@ mySnake.pop();
 console.log(mySnake);
 checkIfGameOver();
 }
+
 function movUp() {
 let growth = {x: mySnake[0].x, y: mySnake[0].y - 1};
 mySnake.unshift(growth);
@@ -100,6 +100,7 @@ mySnake.pop();
 console.log(mySnake);
 checkIfGameOver();
 }
+
 function movDown() {
 let growth = {x: mySnake[0].x, y: mySnake[0].y + 1};
 mySnake.unshift(growth);
@@ -110,6 +111,7 @@ checkIfGameOver();
 }
 
 let go_flag = false;
+let head_drawn = false;
 
 function Draw(){
   for (let m = 0; m<10; m++){
@@ -119,16 +121,17 @@ function Draw(){
       if (m == mySnake[0].y && n == mySnake[0].x){
         if (!go_flag){
           line += chalk.blackBright("■");
+          head_drawn = true;
         }
         nonbody  =true;
       }
-      if(m == fruit[1] && n == fruit[0]){
+      if((m == fruit[1] && n == fruit[0]) && head_drawn == false){
         line += chalk.redBright("¬");
         //draw_fruit = false;
         nonbody = true;
       }
       for(let i = 1; i <= mySnake.length-1; i++){
-        if(m == mySnake[i].y && n == mySnake[i].x){
+        if((m == mySnake[i].y && n == mySnake[i].x)&& head_drawn == false){
           line += chalk.blackBright("□");
           nonbody = true;
         }
@@ -136,6 +139,7 @@ function Draw(){
       if (!nonbody){
           line += " ";
         }
+      head_drawn = false;
     }
     line += "|";
     console.log(chalk.bgGreenBright(line));
@@ -152,7 +156,12 @@ function checkIfGameOver(){
     if((mySnake[0].x == mySnake[i].x) && (mySnake[0].y == mySnake[i].y)){
       gameOver();
     }
-  } 
+  }
+  if(mySnake[0].x == 19 || mySnake[0].x == -1 || mySnake[0].y == 10 || mySnake[0].y == -1){
+    // console.log(`
+    //   `);
+    gameOver();
+  }
 }
 
 let fruit = [0,0];
