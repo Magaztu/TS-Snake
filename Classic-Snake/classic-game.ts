@@ -12,7 +12,7 @@ process.stdin.on('keypress', function (ch, key) {
 
   if(mySnake[0].y == fruit[1] && mySnake[0].x == fruit[0]){
     //draw_fruit = true;
-    snake_width++;
+    // snake_width++;
     GROW();
     fruitPull();
       score += score * score_multiplier;
@@ -53,7 +53,7 @@ process.stdin.on('keypress', function (ch, key) {
       Draw();
       break;
   }
-  if(mySnake[0].x == 20 || mySnake[0].x-snake_width == -1 || mySnake[0].y == 10 || mySnake[0].y == -1){
+  if(mySnake[0].x == 19 || mySnake[0].x == -1 || mySnake[0].y == 10 || mySnake[0].y == -1){
     Draw();
     console.log(chalk.inverse("GAME OVERRR" + `   SCORE: ${score.toFixed(2)}`));
     process.stdin.pause();
@@ -65,7 +65,7 @@ let mySnake = [
   {x: 4, y:5},{x: 5, y:5},{x: 6, y:5}
 ];
 
-let snake_width = 3;
+// let snake_width = 3;
 let inputsbyplayer = 0;
 let score_multiplier = 0;
 let score = 0;
