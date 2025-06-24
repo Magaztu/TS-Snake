@@ -1,6 +1,6 @@
 ### Classic Snake!
 
-This is the game you know and love, classic - snake!, where take control over a cute _-blocky-_ snake and try to eat as much fruits as you can before bumping into yourself or the walls... Watch out! as the snake grows one tile for every fruit eaten.
+This is the game you know and love, classic - snake!, where you take control over a cute _-blocky-_ snake and try to eat as much fruits as you can before bumping into yourself or the walls... Watch out! as the snake grows one tile for every fruit eaten.
 
 
 
