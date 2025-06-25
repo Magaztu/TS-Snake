@@ -1,0 +1,1 @@
+// code goes here, this is a variant where the snake moves forward automatically. Based on Classic-Snake
