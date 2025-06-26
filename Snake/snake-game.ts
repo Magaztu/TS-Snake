@@ -114,25 +114,26 @@ let go_flag = false;
 let head_drawn = false;
 
 function Draw(){
+    console.log('');
   for (let m = 0; m<10; m++){
     let line = "|";
     for(let n = 0; n <19; n++){
       let nonbody = false;
       if (m == mySnake[0].y && n == mySnake[0].x){
         if (!go_flag){
-          line += chalk.blackBright("■");
+          line += chalk.cyanBright("■");
           head_drawn = true;
         }
         nonbody  =true;
       }
       if((m == fruit[1] && n == fruit[0]) && head_drawn == false){
-        line += chalk.redBright("¬");
+        line += chalk.blue("~");
         //draw_fruit = false;
         nonbody = true;
       }
       for(let i = 1; i <= mySnake.length-1; i++){
         if((m == mySnake[i].y && n == mySnake[i].x)&& head_drawn == false){
-          line += chalk.blackBright("□");
+          line += chalk.cyanBright("□");
           nonbody = true;
         }
       }
@@ -142,7 +143,7 @@ function Draw(){
       head_drawn = false;
     }
     line += "|";
-    console.log(chalk.bgGreenBright(line));
+    console.log(chalk.bgYellowBright(line));
   }
   // console.log(fruit);
 }
